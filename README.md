@@ -1,5 +1,5 @@
 # LED-Matrix-Game
-The project is done by pynq-Z1 developing board with C programming language and assembly machine code.
+The project is done by PYNQ-Z1 developing board with C programming language and assembly machine code.
 The "main.c" file must be executed along with compiling the complete libraries and attachments on the board to run the entire code.
 
 # Game-Description
