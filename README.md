@@ -3,7 +3,7 @@
 A fully bare-metal RGB LED matrix game implemented on the **Digilent PYNQ-Z1** board using **C and Assembly**. No operating system. No PYNQ overlays. Just raw ARM Cortex-A9 power.
 
 >  Demo:
-> ![LED Matrix Game](Project's Overview/Project Preview1.gif)
+> ![LED Matrix Game](media/demo.gif)
 
 ---
 
@@ -21,7 +21,7 @@ A fully bare-metal RGB LED matrix game implemented on the **Digilent PYNQ-Z1** b
 
 ##  What's Inside
 
-All code is in `Codes Files/`:
+All code is in `src/`:
 - `main.c` – game logic, interrupt handlers
 - `Pixel.c/h` – LED matrix driver (bit-banging)
 - `Interrupt_setup.c/h` – GPIO and timer interrupt config
@@ -31,9 +31,18 @@ All code is in `Codes Files/`:
 
 ---
 
+##  Build?
+
+Nope. This repo is meant as a **showcase only**.
+- You don’t need to build it.
+- All logic is embedded and configured.
+- Explore the source, study the architecture, or adapt it for your own PYNQ-Z1 project.
+
+---
+
 ##  Optional: Full Demo
 
-Watch full gameplay here: [`media/demo.mp4`](Project's Overview/Project Preview1.mp4)
+If provided, watch full gameplay here: [`media/demo.mp4`](media/demo.mp4)
 
 ---
 
