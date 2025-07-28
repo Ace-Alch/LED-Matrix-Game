@@ -1,4 +1,5 @@
-#  Bare-Metal LED Matrix Game on PYNQ-Z1 (ARM Cortex-A9)
+#  Bare-Metal LED Matrix Game on PYNQ-Z1 
+#  (ARM Cortex-A9)
 
 A fully bare-metal RGB LED matrix game implemented on the **Digilent PYNQ-Z1** board using **C and Assembly**. No operating system. No PYNQ overlays. Just raw ARM Cortex-A9 power.
 
