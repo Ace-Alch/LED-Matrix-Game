@@ -31,15 +31,6 @@ All code is in `src/`:
 
 ---
 
-##  Build?
-
-Nope. This repo is meant as a **showcase only**.
-- You don’t need to build it.
-- All logic is embedded and configured.
-- Explore the source, study the architecture, or adapt it for your own PYNQ-Z1 project.
-
----
-
 ##  Optional: Full Demo
 
 If provided, watch full gameplay here: [`media/demo.mp4`](media/demo.mp4)
