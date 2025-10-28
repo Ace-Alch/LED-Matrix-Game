@@ -33,7 +33,7 @@ All code is in `src/`:
 
 ##  Optional: Full Demo
 
-If provided, watch full gameplay here: [`media/demo.mp4`](media/demo.mp4)
+Watch full gameplay here: [`media/demo.mp4`](media/demo.mp4)
 
 ---
 
