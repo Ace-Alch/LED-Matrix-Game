@@ -1,0 +1,24 @@
+{
+  "slug": "LED-Matrix-Game",
+  "name": "Pixel arcade",
+  "motif": "pixels",
+  "background": "#121023",
+  "ink": "#f2e6fb",
+  "accent": "#df9af0",
+  "layout": "hardware",
+  "canvas": {
+    "width": 3840,
+    "height": 1440,
+    "viewBox": [
+      0,
+      0,
+      1920,
+      720
+    ]
+  },
+  "font": "Arial",
+  "contrast": {
+    "body": 15.56,
+    "accent": 8.91
+  }
+}
