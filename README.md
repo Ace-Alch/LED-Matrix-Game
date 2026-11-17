@@ -1,5 +1,5 @@
 <div align="center">
-<img src="portfolio-assets/cover.svg" width="100%" alt="Bare-Metal LED Matrix Game project cover">
+<img src="https://raw.githubusercontent.com/Ace-Alch/Ace-Alch.github.io/main/banners/LED-Matrix-Game.webp" width="100%" alt="LED-Matrix-Game — project concept artwork">
 
 # Bare-Metal LED Matrix Game
 
