@@ -1,98 +1,37 @@
-<div align="center">
-<img src="https://raw.githubusercontent.com/Ace-Alch/Ace-Alch.github.io/main/banners/LED-Matrix-Game.webp" width="100%" alt="LED-Matrix-Game — project concept artwork">
+<h1 align="center">LED MATRIX ARCADE</h1>
+<p align="center"><b>A spaceship game on a PYNQ-Z1, driven by timer and button interrupts.</b></p>
 
-# Bare-Metal LED Matrix Game
+<p align="center"><img src="media/demo.gif" alt="Recording of the original RGB LED matrix game running on the board" width="640"></p>
 
-**Run a spaceship game on PYNQ-Z1 with C, ARM assembly and a custom display driver.**
+<p align="center"><a href="media/demo.mp4"><b>Watch the full hardware recording</b></a> &nbsp; | &nbsp; <a href="src/main.c"><b>Read the game code</b></a></p>
 
-PYNQ-Z1 · ARM Cortex-A9 · C · ARM assembly · Xilinx SDK
+## The arcade controls
 
-[Project record](#bench-card) · [Design](portfolio/DESIGN.md) · [Setup](portfolio/SETUP.md) · [Validation](portfolio/VALIDATION.md) · [Evidence](portfolio/EVIDENCE.md)
-</div>
-
-<!-- project-navigation:start -->
-<p align="center">
-  <a href="https://ace-alch.github.io/work/LED-Matrix-Game/"><img alt="View project" src="https://img.shields.io/badge/View%20project-58a6ff?style=for-the-badge&logo=githubpages&logoColor=white"></a>
-  <a href="portfolio/DESIGN.md"><img alt="Explore design" src="https://img.shields.io/badge/Explore%20design-30363d?style=for-the-badge&logo=readthedocs&logoColor=white"></a>
-  <a href="portfolio/SETUP.md"><img alt="Setup guide" src="https://img.shields.io/badge/Setup%20guide-30363d?style=for-the-badge&logo=github&logoColor=white"></a>
-  <a href="portfolio/EVIDENCE.md"><img alt="Check evidence" src="https://img.shields.io/badge/Check%20evidence-30363d?style=for-the-badge&logo=readthedocs&logoColor=white"></a>
-</p>
-<p align="center"><strong>Implemented game</strong> &nbsp; / &nbsp; Engineering &nbsp; / &nbsp; <a href="https://ace-alch.github.io/">Mehdi's portfolio</a></p>
-<!-- project-navigation:end -->
-
-
-## Bench card
-
-| Item | Record |
+| Input | Action |
 | :-- | :-- |
-| Project type | Implemented game |
-| Field | Engineering |
-| Material in this package | Existing repository inspected |
-| Documentation review | 17 November 2026 |
+| BTN0 | Move right |
+| BTN1 | Fire one shot |
+| BTN2 | Move left |
+| BTN3 | Restart |
 
-## The build
+A red alien traverses the top of the playfield. A blue shot moves up from the white ship. Green LEDs mark hits. A yellow check mark appears after the fourth hit.
 
-Run a spaceship game on PYNQ-Z1 with C, ARM assembly and a custom display driver. The documentation separates the stated project scope, inspected artifacts and future work. A listed feature is not a new test result.
+## Inside one game tick
 
-### Subsystems
-
-- Buttons and GPIO
-- Interrupts and timers
-- Game state
-- RGB matrix driver
-- Score
-
-## Open the bench notes
-
-1. Read the [design record](portfolio/DESIGN.md) for the system elements and boundaries.
-2. Follow the [setup record](portfolio/SETUP.md) for available entry points.
-3. Use the [validation plan](portfolio/VALIDATION.md) to record reproducible results.
-4. Check the [evidence register](portfolio/EVIDENCE.md) before reusing claims.
-
-## Project preview
-
-![Project artifact](media/demo.gif)
-
-This image is an existing repository artifact. It is not evidence of a new test.
-
-<details>
-<summary><strong>Browse source files and project artifacts</strong></summary>
-
-| Path | Type |
+| Event | What runs |
 | :-- | :-- |
-| [LICENSE](https://github.com/Ace-Alch/LED-Matrix-Game/blob/main/LICENSE) | file |
-| [README.md](https://github.com/Ace-Alch/LED-Matrix-Game/blob/main/README.md) | .md |
-| [media/demo.gif](https://github.com/Ace-Alch/LED-Matrix-Game/blob/main/media/demo.gif) | .gif |
-| [media/demo.mp4](https://github.com/Ace-Alch/LED-Matrix-Game/blob/main/media/demo.mp4) | .mp4 |
-| [src/Interrupt_setup.c](https://github.com/Ace-Alch/LED-Matrix-Game/blob/main/src/Interrupt_setup.c) | .c |
-| [src/Interrupt_setup.h](https://github.com/Ace-Alch/LED-Matrix-Game/blob/main/src/Interrupt_setup.h) | .h |
-| [src/Pixel.c](https://github.com/Ace-Alch/LED-Matrix-Game/blob/main/src/Pixel.c) | .c |
-| [src/Pixel.h](https://github.com/Ace-Alch/LED-Matrix-Game/blob/main/src/Pixel.h) | .h |
-| [src/Xilinx.spec](https://github.com/Ace-Alch/LED-Matrix-Game/blob/main/src/Xilinx.spec) | .spec |
-| [src/blinker.S](https://github.com/Ace-Alch/LED-Matrix-Game/blob/main/src/blinker.S) | .S |
-| [src/lscript.ld](https://github.com/Ace-Alch/LED-Matrix-Game/blob/main/src/lscript.ld) | .ld |
-| [src/main.c](https://github.com/Ace-Alch/LED-Matrix-Game/blob/main/src/main.c) | .c |
+| **800 Hz timer** | Updates the two ship rows. |
+| **10 Hz game timer** | Advances the shot, checks collisions, and advances the alien every third tick at the default setting. |
+| **GPIO interrupt** | Reads the button event and updates the ship or game state. |
 
-See the [complete source inventory](portfolio/SOURCE-INVENTORY.md) for all inspected file paths.
+Start with the [interrupt handlers and game state](src/main.c). Follow `SetPixel` into the [matrix driver](src/Pixel.c), or inspect the [TTC and GPIO setup](src/Interrupt_setup.c) and [ARM assembly startup LED routine](src/blinker.S).
 
-</details>
+## Reproduce the game checks
 
-## Verification backlog
+```sh
+python tools/check_game.py
+```
 
-- [ ] Hardware platform export
-- [ ] Matrix wiring and supply
-- [ ] SDK release
-- [ ] Reproduced board test
+The host test executes the original game handlers with mock GPIO and display functions. It checks movement limits, the single-shot rule, four hits, and restart. The hardware video shows the physical panel. Rebuilding the target firmware requires the PYNQ-Z1 hardware platform and the matching Xilinx BSP. See the [setup notes](portfolio/SETUP.md).
 
-## Credits and reuse
-
-Project record: Mehdi Moallemkolaei. Specific third-party and course contributions must retain their original notices.
-
-Existing license terms remain in effect. This package does not grant a new license over source code, course material, models or datasets. See [reuse and contribution notes](portfolio/CONTRIBUTIONS.md).
-
-
----
-
-![Project design system](portfolio-assets/section.svg)
-
-[Visual design notes](portfolio/VISUAL-DESIGN.md) · [Design tokens](portfolio/design-tokens.json)
+[Hardware evidence](portfolio/EVIDENCE.md) · [Source inventory](portfolio/SOURCE-INVENTORY.md) · [MIT License](LICENSE)
